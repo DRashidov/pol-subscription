@@ -24,7 +24,7 @@ export default function RegisterPage({ setIsRegistered }) {
     };
 
     const response = await fetch(
-      `https://cors-anywhere.herokuapp.com/` +
+      // `https://cors-anywhere.herokuapp.com/` +
         `https://dev-polaris-subscription.us.auth0.com/dbconnections/signup`,
       {
         method: 'POST',

@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import Loading from './loading';
+import { UserContext } from '../context/user';
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const { setAuthToken, setIsLoggedIn } = useContext(UserContext);
 
-  const REDIRECT_URL = 'http://localhost:3000/profile';
   const proxy = 'https://cors-anywhere.herokuapp.com/';
+  const REDIRECT_URL = 'http://localhost:3000/login';
   const BASE_URL = 'https://dev-polaris-subscription.us.auth0.com/oauth/token';
   const CLIENT_ID = process.env.REACT_APP_AUTH0_CLIENT_ID;
-  // const CLIENT_SECRET = process.env.REACT_APP_AUTH0_CLIENT_SECRET;
+  const DOMAIN = process.env.REACT_APP_AUTH0_DOMAIN;
   const AUTH_URL = `${BASE_URL}`;
 
   const handleLogin = async (e) => {
@@ -20,7 +21,7 @@ export default function LoginForm() {
     setIsLoading(true);
 
     try {
-      const response = await fetch(proxy + AUTH_URL, {
+      const response = await fetch(AUTH_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -29,21 +30,19 @@ export default function LoginForm() {
       });
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
-        // redirect to '/main page POLARIS'
+        const { access_token } = data;
+        setAuthToken(access_token);
+        setIsLoggedIn(true);
       }
-
-      setIsLoading(false);
     } catch (err) {
       console.log(err);
       setIsLoading(false);
     }
   };
 
-  const signInGoogle = async () => {
+  const signInWithGoogle = async () => {
     const response = await fetch(
-      proxy +
-        `https://dev-polaris-subscription.us.auth0.com/authorize?response_type=token&client_id=${CLIENT_ID}&connection=google-oauth2&redirect_uri=${REDIRECT_URL}`
+      proxy + `https://${DOMAIN}/authorize?response_type=token&client_id=${CLIENT_ID}&connection=google-oauth2&redirect_uri=${REDIRECT_URL},`
     );
 
     console.log(response);
@@ -81,13 +80,12 @@ export default function LoginForm() {
         <button type='submit' className='btn btn-primary' onClick={handleLogin}>
           Sign In
         </button>
-        {error && <div className='text-danger'>{error}</div>}
       </form>
 
       <div className='mt-5'>
         <h3>Or you can sign in using social accounts</h3>
         <div>
-          <button className='btn mr-3 btn-danger' onClick={signInGoogle}>
+          <button className='btn mr-3 btn-danger' onClick={signInWithGoogle}>
             Sign In with GOOGLE
           </button>
           {/* <button className='btn btn-primary disabled' onClick={signInGoogle}>

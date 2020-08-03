@@ -2,8 +2,8 @@ import React from 'react';
 import { NavLink as RouterNavLink } from 'react-router-dom';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 
-import LoginButton from './login-button';
-import LogoutButton from './logout-button';
+// import LoginButton from './login-button';
+// import LogoutButton from './logout-button';
 
 const MainNav = () => (
   <Nav className='mr-auto'>
@@ -34,14 +34,13 @@ const MainNav = () => (
   </Nav>
 );
 
-const AuthNav = () => {
-
-  return (
-    <Nav className='justify-content-end'>
-      {false ? <LogoutButton /> : <LoginButton />}
-    </Nav>
-  );
-};
+// const AuthNav = () => {
+//   return (
+//     <Nav className='justify-content-end'>
+//       {false ? <LogoutButton /> : <LoginButton />}
+//     </Nav>
+//   );
+// };
 
 const NavBar = () => {
   return (
@@ -49,7 +48,7 @@ const NavBar = () => {
       <Container>
         <Navbar.Brand as={RouterNavLink} className='logo' to='/' />
         <MainNav />
-        <AuthNav />
+        {/* <AuthNav /> */}
       </Container>
     </Navbar>
   );
