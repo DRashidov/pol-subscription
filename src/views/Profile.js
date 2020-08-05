@@ -23,9 +23,8 @@ const Profile = () => {
       const userData = await response.json();
       setUser(userData);
       setLoadingUser(false);
-    }
+    };
     getValues();
-
   }, [authToken]);
 
   if (loadingUser || !authToken || !user) {
@@ -35,7 +34,6 @@ const Profile = () => {
   return (
     <Container className='mb-5'>
       <h1 className='mb-5'>User Profile Page</h1>
-      {console.log('USER', user)}
       <Row className='align-items-center profile-header mb-5 text-center text-md-left'>
         <Col md={2}>
           <img
@@ -45,11 +43,20 @@ const Profile = () => {
           />
         </Col>
         <Col md>
-          <h2>User Name: {user.name}</h2>
-          <p className='lead text-muted'>Email: {user.email}</p>
-          <p className='lead text-muted'>Nickname{user.nickname}</p>
-          <p className='lead text-muted'>
-            Email Verified: {user.email_verified ? 'YES' : 'NO'}
+          <p>
+            <strong className='lead text-muted'>Name: </strong>
+            {user.name}
+          </p>
+          <p>
+            <strong className='lead text-muted'>Email: </strong>
+            {user.email}
+          </p>
+          <p>
+            <strong className='lead text-muted'>Nickname: </strong>
+            {user.nickname}
+          </p>
+          <p>
+            <strong className='lead text-muted'>Email Verified: </strong> {user.email_verified ? 'YES' : 'NO'}
           </p>
         </Col>
       </Row>

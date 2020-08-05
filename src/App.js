@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 
-import { NavBar, Footer } from './components';
+import { NavBar, Footer, ResetForm } from './components';
 import { Home, Profile } from './views';
 import UserProvider from './context/user';
 
@@ -16,10 +16,11 @@ const App = () => {
         <NavBar />
         <Container className='flex-grow-1 mt-5'>
           <Switch>
-            <Route path='/' exact component={Home} />
-            <Route path='/profile' component={Profile} />
-            <Route path='/login' component={LoginForm} />
-            <Route path='/external-api' component={Profile} />
+            <Route exact path='/' component={Home} />
+            <Route exact path='/profile' component={Profile} />
+            <Route exact path='/login' component={LoginForm} />
+            <Route exact path='/external-api' component={Profile} />
+            <Route exact path='/reset' component={ResetForm} />
           </Switch>
         </Container>
         <Footer />

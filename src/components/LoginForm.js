@@ -42,7 +42,8 @@ export default function LoginForm() {
 
   const signInWithGoogle = async () => {
     const response = await fetch(
-      proxy + `https://${DOMAIN}/authorize?response_type=token&client_id=${CLIENT_ID}&connection=google-oauth2&redirect_uri=${REDIRECT_URL},`
+      proxy +
+        `https://dev-polaris-subscription.us.auth0.com/authorize?connection=google-oauth2&client_id=jbx0Pnr3R4kCmdv1VyDgAJnl1IlIgp7o&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Flogin&response_type=token`
     );
 
     console.log(response);
@@ -77,7 +78,7 @@ export default function LoginForm() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type='submit' className='btn btn-primary' onClick={handleLogin}>
+        <button type='submit' className='btn btn-primary regular-signin' onClick={handleLogin}>
           Sign In
         </button>
       </form>
@@ -85,12 +86,16 @@ export default function LoginForm() {
       <div className='mt-5'>
         <h3>Or you can sign in using social accounts</h3>
         <div>
-          <button className='btn mr-3 btn-danger' onClick={signInWithGoogle}>
-            Sign In with GOOGLE
-          </button>
-          {/* <button className='btn btn-primary disabled' onClick={signInGoogle}>
-            Sign In with FACEBOOK
-          </button> */}
+          <a
+            href='https://dev-polaris-subscription.us.auth0.com/authorize?connection=google-oauth2&client_id=jbx0Pnr3R4kCmdv1VyDgAJnl1IlIgp7o&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Flogin&response_type=token'
+            className='btn mr-3 btn-outline-secondary google-signin'
+            onClick={signInWithGoogle}
+          >
+            Sign in with Google
+          </a>
+          {/* <a href='https://dev-polaris-subscription.us.auth0.com/authorize?connection=google-oauth2&client_id=jbx0Pnr3R4kCmdv1VyDgAJnl1IlIgp7o&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Flogin&response_type=token'>
+            onClick{' '}
+          </a> */}
         </div>
       </div>
     </>
